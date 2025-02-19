@@ -107,3 +107,4 @@
 /Users/javiergarcia/Projects/csnet/SistemaInventario/SistemaInventario/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Users/javiergarcia/Projects/csnet/SistemaInventario/SistemaInventario/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerUI.dll
 /Users/javiergarcia/Projects/csnet/SistemaInventario/SistemaInventario/bin/Debug/net9.0/appsettings.Local.json
+/Users/javiergarcia/Projects/csnet/SistemaInventario/SistemaInventario/obj/Debug/net9.0/SistemaInventario.sourcelink.json

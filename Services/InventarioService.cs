@@ -224,22 +224,20 @@ public class InventarioService : InterfaceServices{
 
     //--------validaciones para productos
     public bool ValidateProductoSv(ProductoDTO producto)
-    {
+{
     if (producto == null)
         return false;
 
     string patron = @"^[A-Z0-9]+( [A-Z0-9]+)*$";
     Regex validadorCadena = new Regex(patron);
 
-
-
-    return validadorCadena.IsMatch(producto.nombre) &&
-           validadorCadena.IsMatch(producto.marca) &&
-           validadorCadena.IsMatch(producto.categoria) &&
+    return !string.IsNullOrEmpty(producto.nombre) && validadorCadena.IsMatch(producto.nombre) &&
+           !string.IsNullOrEmpty(producto.marca) && validadorCadena.IsMatch(producto.marca) &&
+           !string.IsNullOrEmpty(producto.categoria) && validadorCadena.IsMatch(producto.categoria) &&
            producto.precio > 0 &&
            producto.stock > 0 &&
-           producto.status == 1 ;
-    }
+           producto.status == 1;
+}
     
     public async Task<bool> ValidateStatus(short status, string nombreProducto)
     {

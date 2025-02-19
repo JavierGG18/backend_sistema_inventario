@@ -39,11 +39,11 @@ public class InventarioController : ControllerBase{
 
     //añadir un producto
     [HttpPost("productos")]
-    public async Task<IActionResult> AddProduct(ProductoDTO nuevoProducto)
+    public async Task<IActionResult> AddProduct([FromBody]ProductoDTO nuevoProducto)
     {
     // Validar los datos del producto
     var validarProducto = _inventarioService.ValidateProductoSv(nuevoProducto);
-    if (!validarProducto)
+    if (validarProducto == false)
     {
         return BadRequest("Los datos ingresados para el nuevo producto son inválidos");
     }
