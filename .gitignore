@@ -1,0 +1,12 @@
+
+
+# Archivos de configuración de Visual Studio 
+.vscode/ *.csproj.user 
+# Directorios de salida 
+/bin/ /obj/ 
+# Archivos de log 
+*.log 
+# Archivos de paquetes 
+*.nupkg 
+# Archivos de configuración locales 
+*.appsettings.Local.json
