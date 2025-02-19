@@ -9,4 +9,4 @@
 # Archivos de paquetes 
 *.nupkg 
 # Archivos de configuración locales 
-appsettings.Local.json ```
+*.appsettings.Local.json
