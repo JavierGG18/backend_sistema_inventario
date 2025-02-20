@@ -42,7 +42,7 @@ public interface InterfaceServices{
 
     //--validaciones para productos
 
-    bool ValidateProductoSv(ProductoDTO producto);
+    Task<bool> ValidateProductoSv(ProductoDTO producto);
     Task<bool> ValidateStatus(short status, string nombreProducto);
 
 

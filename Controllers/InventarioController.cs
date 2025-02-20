@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 
 public class InventarioController : ControllerBase{
@@ -42,17 +43,20 @@ public class InventarioController : ControllerBase{
     public async Task<IActionResult> AddProduct([FromBody]ProductoDTO nuevoProducto)
     {
     // Validar los datos del producto
-    var validarProducto = _inventarioService.ValidateProductoSv(nuevoProducto);
+    Console.WriteLine(JsonSerializer.Serialize(nuevoProducto));
+    var validarProducto = await _inventarioService.ValidateProductoSv(nuevoProducto);
     if (validarProducto == false)
-    {
-        return BadRequest("Los datos ingresados para el nuevo producto son inválidos");
+    {   
+        Console.WriteLine("productos invalido");
+        return UnprocessableEntity("Los datos ingresados para el nuevo producto son inválidos");
     }
+    
 
     // Verificar si el producto ya existe
     var exists = await _inventarioService.GetProductoSv(nuevoProducto.nombre);
     if (exists != null)  // Verificar si el producto ya existe
     {
-        return BadRequest("El producto ya existe en los registros");
+        return Conflict("El producto ya existe en los registros");
     }
 
     // Agregar el nuevo producto
@@ -160,7 +164,7 @@ public class InventarioController : ControllerBase{
     var exists = await _inventarioService.GetCategoriaSv(nuevaCategoria.nombreCategoria);
     if (exists != null)
     {
-        return BadRequest("La categoría ya existe en los registros.");
+        return Conflict("La categoría ya existe en los registros.");
     }
 
     // Intentar agregar la nueva categoría

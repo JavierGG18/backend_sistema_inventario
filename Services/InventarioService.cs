@@ -223,21 +223,41 @@ public class InventarioService : InterfaceServices{
     }
 
     //--------validaciones para productos
-    public bool ValidateProductoSv(ProductoDTO producto)
+public async Task<bool> ValidateProductoSv(ProductoDTO producto)
 {
     if (producto == null)
+    {
+        Console.WriteLine("Producto es nulo");
         return false;
+    }
+
+    var existCategoria = await GetIdCategoriaSv(producto.categoria);
+    if (existCategoria == 0){
+        return false;
+        
+    }
 
     string patron = @"^[A-Z0-9]+( [A-Z0-9]+)*$";
     Regex validadorCadena = new Regex(patron);
 
-    return !string.IsNullOrEmpty(producto.nombre) && validadorCadena.IsMatch(producto.nombre) &&
-           !string.IsNullOrEmpty(producto.marca) && validadorCadena.IsMatch(producto.marca) &&
-           !string.IsNullOrEmpty(producto.categoria) && validadorCadena.IsMatch(producto.categoria) &&
-           producto.precio > 0 &&
-           producto.stock > 0 &&
-           producto.status == 1;
+    bool nombreValido = !string.IsNullOrEmpty(producto.nombre) && validadorCadena.IsMatch(producto.nombre);
+    bool marcaValida = !string.IsNullOrEmpty(producto.marca) && validadorCadena.IsMatch(producto.marca);
+    bool categoriaValida = !string.IsNullOrEmpty(producto.categoria) && validadorCadena.IsMatch(producto.categoria);
+    bool precioValido = producto.precio > 0;
+    bool stockValido = producto.stock > 0;
+    bool statusValido = producto.status == 1;
+
+    // Imprimir los resultados de las validaciones
+    Console.WriteLine($"Validación Nombre: {nombreValido}");
+    Console.WriteLine($"Validación Marca: {marcaValida}");
+    Console.WriteLine($"Validación Categoría: {categoriaValida}");
+    Console.WriteLine($"Validación Precio: {precioValido}");
+    Console.WriteLine($"Validación Stock: {stockValido}");
+    Console.WriteLine($"Validación Status: {statusValido}");
+
+    return nombreValido && marcaValida && categoriaValida && precioValido && stockValido && statusValido;
 }
+
     
     public async Task<bool> ValidateStatus(short status, string nombreProducto)
     {
